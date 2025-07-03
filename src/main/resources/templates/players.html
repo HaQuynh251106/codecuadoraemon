@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Player Management</title>
+</head>
+<body>
+<h1>Player List</h1>
+
+<form th:action="@{/players/add}" method="post">
+  Name: <input type="text" name="playerName" required />
+  Score: <input type="number" name="highScore" />
+  Level: <input type="number" name="level" />
+  National ID: <input type="number" name="nationalId" />
+  <button type="submit">Add Player</button>
+</form>
+
+<table border="1">
+  <thead>
+  <tr>
+    <th>ID</th><th>Name</th><th>Score</th><th>Level</th><th>Nationality</th><th>Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="player : ${players}">
+    <td th:text="${player.playerId}"></td>
+    <td th:text="${player.playerName}"></td>
+    <td th:text="${player.highScore}"></td>
+    <td th:text="${player.level}"></td>
+    <td th:text="${player.national.nationalName}"></td>
+    <td>
+      <a th:href="@{/players/delete/{id}(id=${player.playerId})}">Delete</a>
+    </td>
+    <td>
+      <a th:href="@{'/players/edit/' + ${player.playerId}}">Sửa</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

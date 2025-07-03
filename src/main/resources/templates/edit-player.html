@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Sửa người chơi</title></head>
+<body>
+<h2>Chỉnh sửa người chơi</h2>
+
+<form th:action="@{/players/update}" th:object="${player}" method="post">
+    <input type="hidden" th:field="*{playerId}" />
+
+    Tên:
+    <input type="text" th:field="*{playerName}" /><br/>
+
+    Điểm:
+    <input type="number" th:field="*{highScore}" /><br/>
+
+    Level:
+    <input type="number" th:field="*{level}" /><br/>
+
+    Quốc tịch:
+    <select name="nationalId">
+        <option th:each="n : ${nationals}"
+                th:value="${n.nationalId}"
+                th:text="${n.nationalName}"
+                th:selected="${n.nationalId} == ${player.national.nationalId}">
+        </option>
+    </select><br/>
+
+    <button type="submit">Lưu</button>
+</form>
+
+<a th:href="@{/players}">← Quay lại danh sách</a>
+</body>
+</html>
